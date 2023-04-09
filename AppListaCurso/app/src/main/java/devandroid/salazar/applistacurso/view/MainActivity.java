@@ -31,33 +31,28 @@ public class MainActivity extends AppCompatActivity {
         preferences = getSharedPreferences(NOME_PREFERENCES, 0);
         SharedPreferences.Editor listaVip = preferences.edit();
 
-        pessoa1 = new Pessoa();
-        pessoa1.setPrimeiroNome("Diogo");
-        pessoa1.setSobrenome("Araujo");
-        pessoa1.setCursoDesejado("Android");
-        pessoa1.setTelefoneContato("21-22443355");
+        controller = new PessoaController();
+        controller.toString();
 
-        pessoa2 = new Pessoa();
-        pessoa2.setPrimeiroNome("Alyne");
-        pessoa2.setSobrenome("Coelho");
-        pessoa2.setCursoDesejado("Cozer");
-        pessoa2.setTelefoneContato("24-99896542");
+        pessoa1 = new Pessoa();
+        pessoa1.setPrimeiroNome(preferences.getString("primeiroNome", "NA"));
+        pessoa1.setSobrenome(preferences.getString("sobreNome", "NA"));
+        pessoa1.setCursoDesejado(preferences.getString("nomeCurso", "NA"));
+        pessoa1.setTelefoneContato(preferences.getString("telefoneContato", "NA"));
 
         EditText editPrimeiroNome = findViewById(R.id.editPrimeiroNome);
         EditText editSobrenome = findViewById(R.id.editSobrenome);
         EditText editTelefoneContato = findViewById(R.id.editTelefoneContato);
         EditText editNomeCurso = findViewById(R.id.editNomeCurso);
 
-        Button btnLimpar = findViewById(R.id.btnLimpar);
-        Button btnSalvar = findViewById(R.id.btnSalvar);
-        Button btnFinalizar = findViewById(R.id.btnFinalizar);
-
         editPrimeiroNome.setText(pessoa1.getPrimeiroNome());
         editSobrenome.setText(pessoa1.getSobrenome());
         editNomeCurso.setText(pessoa1.getCursoDesejado());
         editTelefoneContato.setText(pessoa1.getTelefoneContato());
 
-        //controller.salvar(pessoa1);
+        Button btnLimpar = findViewById(R.id.btnLimpar);
+        Button btnSalvar = findViewById(R.id.btnSalvar);
+        Button btnFinalizar = findViewById(R.id.btnFinalizar);
 
         btnFinalizar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,18 +75,21 @@ public class MainActivity extends AppCompatActivity {
         btnSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pessoa2.setPrimeiroNome(editPrimeiroNome.getText().toString());
-                pessoa2.setSobrenome(editSobrenome.getText().toString());
-                pessoa2.setCursoDesejado(editNomeCurso.getText().toString());
-                pessoa2.setTelefoneContato(editTelefoneContato.getText().toString());
+                pessoa1.setPrimeiroNome(editPrimeiroNome.getText().toString());
+                pessoa1.setSobrenome(editSobrenome.getText().toString());
+                pessoa1.setCursoDesejado(editNomeCurso.getText().toString());
+                pessoa1.setTelefoneContato(editTelefoneContato.getText().toString());
 
-                Toast.makeText(MainActivity.this, "Salvo" + pessoa2.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "Salvo " + pessoa1.toString(), Toast.LENGTH_LONG).show();
 
                 listaVip.putString("primeiroNome", pessoa1.getPrimeiroNome());
                 listaVip.putString("sobreNome", pessoa1.getSobrenome());
                 listaVip.putString("nomeCurso", pessoa1.getCursoDesejado());
                 listaVip.putString("telefoneContato", pessoa1.getTelefoneContato());
                 listaVip.apply();
+
+
+                //controller.salvar(pessoa1);
             }
         });
 
