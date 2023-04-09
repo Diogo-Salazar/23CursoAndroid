@@ -19,27 +19,16 @@ public class MainActivity extends AppCompatActivity {
     Pessoa pessoa1;
     Pessoa pessoa2;
     PessoaController controller;
-
-    SharedPreferences preferences;
-    SharedPreferences.Editor listaVip;
-    public static final String NOME_PREFERENCES = "pref_listavip";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        preferences = getSharedPreferences(NOME_PREFERENCES, 0);
-        listaVip = preferences.edit();
-
-        controller = new PessoaController();
+        controller = new PessoaController(MainActivity.this);
         controller.toString();
 
         pessoa1 = new Pessoa();
-        pessoa1.setPrimeiroNome(preferences.getString("primeiroNome", "NA"));
-        pessoa1.setSobrenome(preferences.getString("sobreNome", "NA"));
-        pessoa1.setCursoDesejado(preferences.getString("nomeCurso", "NA"));
-        pessoa1.setTelefoneContato(preferences.getString("telefoneContato", "NA"));
+
 
         EditText editPrimeiroNome = findViewById(R.id.editPrimeiroNome);
         EditText editSobrenome = findViewById(R.id.editSobrenome);
@@ -71,8 +60,7 @@ public class MainActivity extends AppCompatActivity {
                 editNomeCurso.setText("");
                 editTelefoneContato.setText("");
 
-                listaVip.clear();
-                listaVip.apply();
+                controller.limpar();
             }
         });
 
@@ -86,14 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Toast.makeText(MainActivity.this, "Salvo " + pessoa1.toString(), Toast.LENGTH_LONG).show();
 
-                listaVip.putString("primeiroNome", pessoa1.getPrimeiroNome());
-                listaVip.putString("sobreNome", pessoa1.getSobrenome());
-                listaVip.putString("nomeCurso", pessoa1.getCursoDesejado());
-                listaVip.putString("telefoneContato", pessoa1.getTelefoneContato());
-                listaVip.apply();
-
-
-                //controller.salvar(pessoa1);
+                controller.salvar(pessoa1);
             }
         });
 
