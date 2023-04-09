@@ -10,12 +10,14 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import devandroid.salazar.applistacurso.R;
+import devandroid.salazar.applistacurso.controller.PessoaController;
 import devandroid.salazar.applistacurso.model.Pessoa;
 
 public class MainActivity extends AppCompatActivity {
 
     Pessoa pessoa1;
     Pessoa pessoa2;
+    PessoaController controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
         editSobrenome.setText(pessoa1.getSobrenome());
         editNomeCurso.setText(pessoa1.getCursoDesejado());
         editTelefoneContato.setText(pessoa1.getTelefoneContato());
+
+        controller.salvar(pessoa1);
 
         btnFinalizar.setOnClickListener(new View.OnClickListener() {
             @Override
